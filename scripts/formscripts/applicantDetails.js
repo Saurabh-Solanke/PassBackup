@@ -1,8 +1,6 @@
 document.getElementById("nextButton2").addEventListener("click", () => {
   document.getElementById("familyDetails-tab").click();
-  document
-    .getElementById("familyDetails")
-    .scrollIntoView({ behavior: "smooth" });
+  document.getElementById("familyDetails").scrollIntoView({ behavior: "smooth" });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => response.json())
     .then((data) => {
       const stateSelect = document.getElementById("state");
+      const districtSelect = document.getElementById("district");
+
       data.states.forEach((state) => {
         const option = document.createElement("option");
         option.value = state;
@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       stateSelect.addEventListener("change", () => {
-        const districtSelect = document.getElementById("district");
-        districtSelect.innerHTML = ""; // Clear previous options
+        districtSelect.innerHTML = "<option value='' disabled selected>Select City</option>"; // Clear previous options and set placeholder
         const selectedState = stateSelect.value;
         data.districts[selectedState].forEach((district) => {
           const option = document.createElement("option");
@@ -28,21 +27,37 @@ document.addEventListener("DOMContentLoaded", () => {
           districtSelect.appendChild(option);
         });
       });
+
+      // Initialize district select with disabled option
+      districtSelect.innerHTML = "<option value='' disabled selected>Select State First</option>";
     });
 
+  const aliasesField = document.getElementById("aliases");
+  const previousNameField = document.getElementById("previous_name");
+
   document.getElementById("known_yes").addEventListener("change", () => {
-    document.getElementById("aliases").style.display = "block";
+    aliasesField.style.display = "block";
+    aliasesField.tabIndex = 0;
   });
 
   document.getElementById("known_no").addEventListener("change", () => {
-    document.getElementById("aliases").style.display = "none";
+    aliasesField.style.display = "none";
+    aliasesField.tabIndex = -1;
   });
 
   document.getElementById("changed_yes").addEventListener("change", () => {
-    document.getElementById("previous_name").style.display = "block";
+    previousNameField.style.display = "block";
+    previousNameField.tabIndex = 0;
   });
 
   document.getElementById("changed_no").addEventListener("change", () => {
-    document.getElementById("previous_name").style.display = "none";
+    previousNameField.style.display = "none";
+    previousNameField.tabIndex = -1;
   });
+
+  // Set initial display state and tabIndex for hidden fields
+  aliasesField.style.display = "none";
+  aliasesField.tabIndex = -1;
+  previousNameField.style.display = "none";
+  previousNameField.tabIndex = -1;
 });

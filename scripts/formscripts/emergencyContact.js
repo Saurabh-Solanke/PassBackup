@@ -4,3 +4,4 @@ document.getElementById("nextButton5").addEventListener("click", () => {
     .getElementById("otherDetails")
     .scrollIntoView({ behavior: "smooth" });
 });
+  
