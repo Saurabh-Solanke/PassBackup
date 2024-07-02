@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passport Application Payment</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CDN for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4; /* Light grey */
+        color: #333; /* Dark grey text */
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+      .container {
+        flex: 1;
+      }
+      .navbar {
+        background-color: #3a8210; /* Dark green */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-primary,
+      .btn-outline-light {
+        background-color: #38b03c; /* Green */
+        border-color: #38b03c; /* Green */
+      }
+      .btn-primary:hover,
+      .btn-outline-light:hover {
+        background-color: #ffffff; /* White */
+        border-color: #3a8210; /* Dark green */
+        color: #4caf50; /* Light green */
+      }
+      .btn-outline-light {
+        color: #ffffff; /* White */
+      }
+      .card-header {
+        color: #38b03c;
+      }
+      legend {
+        color: #4caf50; /* Light green */
+      }
+      .progress-bar {
+        background-color: #4caf50; /* Light green */
+      }
+      .card-body {
+        overflow-y: auto; /* Enables vertical scrolling if content overflows */
+        max-height: 70vh; /* Sets a maximum height for the card body */
+      }
+      .btn {
+        width: auto; /* Allows the button to adjust its width based on content */
+      }
+      .social-icons {
+        margin: 20px 10px;
+      }
+      .footer {
+        padding: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html"
+          ><i class="fas fa-address-card"></i> Passport Portal</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="new_passport.html">New Passport</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="renewal_passport.html"
+                >Renew Passport</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="history.html">History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="feedback.html">Feedback</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="payment.html">Payment</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faq.html">FAQ</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="index.html" class="btn btn-primary mx-1">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+          <div class="card mb-5">
+            <div class="card-header text-center">
+              <h2>Payment</h2>
+            </div>
+            <div class="card-body">
+              <form id="paymentForm" action="/process_payment" method="post">
+                <div class="mb-3">
+                  <label for="payment_option" class="form-label"
+                    >Select Payment Option</label
+                  >
+                  <select
+                    id="payment_option"
+                    name="payment_option"
+                    class="form-select"
+                    onchange="showPaymentFields()"
+                  >
+                    <option value="card">Pay with Card</option>
+                    <option value="upi">Pay with UPI</option>
+                    <option value="netbanking">Pay with NetBanking</option>
+                  </select>
+                </div>
+
+                <!-- Card Payment Fields -->
+                <div id="cardPayment" class="paymentFields">
+                  <div class="mb-3">
+                    <label for="card_number" class="form-label"
+                      >Card Number</label
+                    >
+                    <input
+                      type="text"
+                      id="card_number"
+                      name="card_number"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="expiry_date" class="form-label"
+                      >Expiry Date</label
+                    >
+                    <input
+                      type="text"
+                      id="expiry_date"
+                      name="expiry_date"
+                      class="form-control"
+                      placeholder="MM/YYYY"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input
+                      type="number"
+                      id="cvv"
+                      name="cvv"
+                      class="form-control"
+                      min="100"
+                      max="999"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- UPI Payment Fields -->
+                <div id="upiPayment" class="paymentFields d-none">
+                  <div class="mb-3">
+                    <label for="upi_id" class="form-label">UPI ID</label>
+                    <input
+                      type="text"
+                      id="upi_id"
+                      name="upi_id"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- NetBanking Payment Fields -->
+                <div id="netbankingPayment" class="paymentFields d-none">
+                  <div class="mb-3">
+                    <label for="account_holder_name" class="form-label"
+                      >Account Holder Name</label
+                    >
+                    <input
+                      type="text"
+                      id="account_holder_name"
+                      name="account_holder_name"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="account_number" class="form-label"
+                      >Account Number</label
+                    >
+                    <input
+                      type="number"
+                      id="account_number"
+                      name="account_number"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="ifsc_code" class="form-label">IFSC Code</label>
+                    <input
+                      type="text"
+                      id="ifsc_code"
+                      name="ifsc_code"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="pin" class="form-label">PIN</label>
+                    <input
+                      type="password"
+                      id="pin"
+                      name="pin"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="amount" class="form-label"
+                    >Amount:
+                    <span style="color: #38b03c; font-weight: bold"
+                      >₹ Using Js Depending on option selected</span
+                    ></label
+                  >
+                </div>
+
+                <div class="d-flex  justify-content-center">
+                  <button
+                    type="submit"
+                    id="submitButton"
+                    class="btn btn-primary w-25"
+                  >
+                    Pay Now
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showPaymentFields() {
+        var selectedOption = document.getElementById("payment_option").value;
+        var paymentFields = document.getElementsByClassName("paymentFields");
+        for (var i = 0; i < paymentFields.length; i++) {
+          paymentFields[i].classList.add("d-none");
+        }
+        document
+          .getElementById(selectedOption + "Payment")
+          .classList.remove("d-none");
+
+        var submitButton = document.getElementById("submitButton");
+        if (selectedOption === "upi") {
+          submitButton.textContent = "Go to UPI";
+        } else {
+          submitButton.textContent = "Pay Now";
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <footer class="footer bg-body-secondary">
+      <i class="social-icons fab fa-twitter"></i>
+      <i class="social-icons fab fa-facebook"></i>
+      <i class="social-icons fab fa-instagram"></i>
+      <i class="social-icons fas fa-envelope"></i>
+      <p>&copy; 2024 Passport Application Portal. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

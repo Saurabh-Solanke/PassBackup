@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complaint or Feedback</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CDN for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4; /* Light grey */
+        color: #333; /* Dark grey text */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .navbar,
+      .footer {
+        background-color: #3a8210; /* Dark green */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .card-header h2 {
+        color: #38b03c; /* Green - matching button background color */
+      }
+      .btn-primary,
+      .link-text {
+        background-color: #38b03c; /* Green */
+        border-color: #38b03c; /* Green */
+        color: #ffffff; /* White */
+      }
+      .btn-primary:hover,
+      .link-text:hover {
+        background-color: #ffffff; /* White */
+        border-color: #3a8210; /* Dark green */
+        color: #4caf50; /* Light green */
+      }
+      .footer {
+        background-color: #f4f4f4; /* Light grey */
+        color: #333;
+        padding: 20px;
+        text-align: center;
+        margin-top: auto;
+      }
+      .social-icons {
+        margin: 20px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html"
+          ><i class="fas fa-address-card"></i> Passport Portal</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="new_passport.html">New Passport</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="renewal_passport.html"
+                >Renew Passport</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="history.html">History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="feedback.html">Feedback</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faq.html">FAQ</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="index.html" class="btn btn-primary mx-1">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header text-center">
+              <h2>Feedback / Complaints</h2>
+            </div>
+            <div class="card-body">
+              <form action="/submit_feedback" method="post">
+                <div class="mb-3">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="feedback"
+                      name="type"
+                      value="feedback"
+                      required
+                    />
+                    <label class="form-check-label" for="feedback"
+                      >Feedback</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="complaint"
+                      name="type"
+                      value="complaint"
+                      required
+                    />
+                    <label class="form-check-label" for="complaint"
+                      >Complaint</label
+                    >
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="subject" class="form-label">Subject</label>
+                  <select
+                    id="subject"
+                    name="subject"
+                    class="form-control"
+                    required
+                  >
+                    <option value="" disabled selected>Select an issue</option>
+                    <option value="delay">Delay in Application</option>
+                    <option value="payment">Payment Issues</option>
+                    <option value="documentation">Documentation Issues</option>
+                    <option value="communication">Communication Issues</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    class="form-control"
+                    required
+                  ></textarea>
+                </div>
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer bg-body-secondary">
+      <i class="social-icons fab fa-twitter"></i>
+      <i class="social-icons fab fa-facebook"></i>
+      <i class="social-icons fab fa-instagram"></i>
+      <i class="social-icons fas fa-envelope"></i>
+      <p>&copy; 2024 Passport Application Portal. All rights reserved.</p>
+    </footer>
+    <script src="scripts/feedback.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

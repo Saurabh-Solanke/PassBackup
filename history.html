@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application History</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CDN for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4; /* Light grey */
+        color: #333; /* Dark grey text */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        
+      }
+      .navbar,
+      .footer {
+        background-color: #3a8210; /* Dark green */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .card-header h2 {
+        color: #38b03c; /* Green - same as search button background color */
+      }
+      .btn-primary,
+      .link-text,
+      .status-submitted {
+        background-color: #38b03c; /* Green */
+        border-color: #38b03c; /* Green */
+        color: #ffffff; /* White */
+      }
+      .btn-primary:hover,
+      .link-text:hover {
+        background-color: #ffffff; /* White */
+        border-color: #3a8210; /* Dark green */
+        color: #4caf50; /* Light green */
+      }
+      .status-pending {
+        color: #38b03c; /* Green - same as button background */
+      }
+      .status-draft {
+        color: #ffc107; /* Bootstrap's warning color */
+      }
+      .status-rejected {
+        color: #dc3545; /* Bootstrap's danger color */
+      }
+      .footer {
+        background-color: #f4f4f4; /* Light grey */
+        color: #333;
+        padding: 20px;
+        text-align: center;
+        margin-top: auto;
+      }
+      .social-icons {
+        margin: 20px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html"
+          ><i class="fas fa-address-card"></i> Passport Portal</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="new_passport.html">New Passport</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="renewal_passport.html"
+                >Renew Passport</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="history.html">History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="feedback.html">Feedback</a>
+            </li>
+         
+            <li class="nav-item">
+              <a class="nav-link" href="faq.html">FAQ</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="index.html" class="btn btn-primary mx-1">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header text-center">
+              <h2>Application History</h2>
+            </div>
+            <div class="card-body">
+              <form class="mb-3">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="search"
+                    name="search"
+                    placeholder="Name, Application Number"
+                  />
+                  <button class="btn btn-primary" type="button">Search</button>
+                </div>
+              </form>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Application Number</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Saurabh K Solanke</td>
+                    <td>PUNE24000123</td>
+                    <td><span style="color: #38b03c">Approved</span></td>
+                    <!-- Green color inline for pending -->
+                  </tr>
+                  <tr>
+                    <td>Sanket K Solanke</td>
+                    <td>PUNE24000124</td>
+                    <td><span style="color: #df0909">Draft</span></td>
+                    <!-- Bootstrap's warning color inline for Draft -->
+                  </tr>
+                  <tr>
+                    <td>Amin</td>
+                    <td>PUNE24000125</td>
+                    <td><span style="color: #ffc107">Pending</span></td>
+                    <!-- Green color inline for Submitted -->
+                  </tr>
+                  <tr>
+                    <td>Anish</td>
+                    <td>PUNE24000126</td>
+                    <td><span style="color: #dc3545">Rejected</span></td>
+                    <!-- Bootstrap's danger color inline for Rejected -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer bg-body-secondary">
+      <i class="social-icons fab fa-twitter"></i>
+      <i class="social-icons fab fa-facebook"></i>
+      <i class="social-icons fab fa-instagram"></i>
+      <i class="social-icons fas fa-envelope"></i>
+      <p>&copy; 2024 Passport Application Portal. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

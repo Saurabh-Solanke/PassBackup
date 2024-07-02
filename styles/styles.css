@@ -1,0 +1,186 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4; /* Light grey */
+  color: #333; /* Dark grey text */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures that the body is never shorter than the viewport */
+  margin: 0; /* Reset default margin */
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.navbar,
+.footer {
+  background-color: #3a8210; /* Dark green */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.jumbotron {
+  font-weight: bold;
+}
+
+.btn-primary,
+.link-text,
+.status-submitted {
+  background-color: #38b03c; /* Green */
+  border-color: #38b03c; /* Green */
+  color: #ffffff; /* White */
+}
+
+.btn-primary:hover,
+.link-text:hover,
+.btn-outline-light:hover {
+  background-color: #ffffff; /* White */
+  border-color: #3a8210; /* Dark green */
+  color: #4caf50; /* Light green */
+}
+
+.btn-outline-light {
+  color: #ffffff; /* White */
+}
+
+.card-header h2,
+.card-header h3,
+.card-header h5,
+.profile-card h3,
+aside h3,
+h2,
+.status-pending {
+  color: #38b03c; /* Green */
+}
+
+.status-draft {
+  color: #ffc107; /* Bootstrap's warning color */
+}
+
+.status-rejected {
+  color: #dc3545; /* Bootstrap's danger color */
+}
+
+.footer {
+  background-color: #f4f4f4; /* Light grey */
+  color: #333; /* Dark grey text */
+  padding: 20px;
+  text-align: center;
+  margin-top: auto; /* Pushes footer to the bottom of the viewport if the content above is not tall enough */
+}
+
+.social-icons {
+  margin: 20px 10px;
+}
+
+.card,
+.profile-card,
+.testimonial,
+aside {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+
+  /* height: 100vh; */
+}
+aside {
+  height: auto;
+}
+
+.quick-links a {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #38b03c; /* Green */
+}
+aside a {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+aside a:hover {
+  color: #38b03c;
+  text-decoration: underline;
+}
+.quick-links a:hover,
+aside a:hover {
+  text-decoration: underline;
+}
+
+.notifications {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.card-body {
+  overflow-y: auto; /* Enables vertical scrolling if content overflows */
+  max-height: 70vh; /* Sets a maximum height for the card body */
+}
+
+.btn {
+  width: auto; /* Allows the button to adjust its width based on content */
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+legend,
+.progress-bar {
+  color: #4caf50; /* Light green */
+}
+
+.testimonial p {
+  font-style: italic;
+}
+
+.testimonial h5 {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.jumbotron {
+  font-weight: bold;
+}
+.btn-primary {
+  background-color: #38b03c; /* Green */
+  border-color: #38b03c; /* Green */
+}
+.btn-primary:hover,
+.btn-outline-light:hover {
+  background-color: #ffffff; /* White */
+  border-color: #3a8210; /* Dark green */
+  color: #4caf50; /* Light green */
+}
+.btn-outline-light {
+  color: #ffffff; /* White */
+}
+.footer {
+  padding: 20px;
+  text-align: center;
+}
+.card-header h3,
+h5,
+h2 {
+  color: #38b03c;
+}
+.social-icons {
+  margin: 20px 10px;
+}
