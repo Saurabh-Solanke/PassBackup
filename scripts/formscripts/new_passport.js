@@ -318,34 +318,30 @@ document.addEventListener("DOMContentLoaded", () => {
     saveSectionData(6, section6Data);
   });
 
-  document
-    .getElementById("saveAndGoToPayment")
-    .addEventListener("click", () => {
-      const section7Data = {
-        declaration_place: document.getElementById("declaration_place").value,
-        declaration_date: document.getElementById("declaration_date").value,
-        applicant_signature: document.getElementById("applicant_signature")
-          .value,
-        left_hand_thumb_imp: document.getElementById("left_hand_thumb_imp")
-          .value,
-        applicant_photo: document.getElementById("applicant_photo").value,
-      };
+  document.getElementById("goToPaymentButton").addEventListener("click", () => {
+    const section7Data = {
+      declaration_place: document.getElementById("declaration_place").value,
+      declaration_date: document.getElementById("declaration_date").value,
+      applicant_signature: document.getElementById("applicant_signature").value,
+      left_hand_thumb_imp: document.getElementById("left_hand_thumb_imp").value,
+      applicant_photo: document.getElementById("applicant_photo").value,
+    };
 
-      const currentDateTime = getCurrentDateTime();
-      saveSectionData(7, section7Data);
+    const currentDateTime = getCurrentDateTime();
+    saveSectionData(7, section7Data);
 
-      let existingForm = NewPassportApplicationForms.find(
-        (form) => form.userid === activeUser.id && !form.submissiondate
-      );
-      existingForm.submissiondate = currentDateTime.date;
-      existingForm.submissiontime = currentDateTime.time;
+    let existingForm = NewPassportApplicationForms.find(
+      (form) => form.userid === activeUser.id && !form.submissiondate
+    );
+    existingForm.submissiondate = currentDateTime.date;
+    existingForm.submissiontime = currentDateTime.time;
 
-      localStorage.setItem(
-        "NewPassportApplicationForms",
-        JSON.stringify(NewPassportApplicationForms)
-      );
-      alert("Form submitted successfully!");
-    });
+    localStorage.setItem(
+      "NewPassportApplicationForms",
+      JSON.stringify(NewPassportApplicationForms)
+    );
+
+  });
 
   // Save draft button event listeners
   document.getElementById("saveDraftButton1").addEventListener("click", () => {
@@ -599,7 +595,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const applicationType = localStorage.getItem("applicationType");
   const passportBookletType = localStorage.getItem("passportBookletType");
 
@@ -608,6 +604,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   if (passportBookletType) {
-    document.getElementById("passport_booklet_type").value = passportBookletType;
+    document.getElementById("passport_booklet_type").value =
+      passportBookletType;
   }
 });
