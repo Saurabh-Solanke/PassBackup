@@ -319,11 +319,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     existingForm.submissiondate = currentDateTime.date;
     existingForm.submissiontime = currentDateTime.time;
+    existingForm.payment = "pending";
 
     localStorage.setItem(
       "NewPassportApplicationForms",
       JSON.stringify(NewPassportApplicationForms)
     );
+    // var paymentModal = new bootstrap.Modal(
+    //   document.getElementById("paymentModal")
+    // );
+    // paymentModal.show();
   });
 });
 

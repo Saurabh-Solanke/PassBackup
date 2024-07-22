@@ -420,13 +420,6 @@
                       </div>
                       <div class="d-flex my-5">
                         <button
-                          id="saveDraftButton1"
-                          class="btn btn-warning me-5"
-                          type="button"
-                        >
-                          Save Draft
-                        </button>
-                        <button
                           id="nextButton1"
                           class="btn btn-primary"
                           type="button"
@@ -948,13 +941,6 @@
 
                       <div class="d-flex my-5">
                         <button
-                          id="saveDraftButton2"
-                          class="btn btn-warning me-5"
-                          type="button"
-                        >
-                          Save Draft
-                        </button>
-                        <button
                           id="nextButton2"
                           class="btn btn-primary"
                           type="button"
@@ -1390,13 +1376,6 @@
 
                       <div class="d-flex my-5">
                         <button
-                          id="saveDraftButton3"
-                          class="btn btn-warning me-5"
-                          type="button"
-                        >
-                          Save Draft
-                        </button>
-                        <button
                           id="nextButton3"
                           class="btn btn-primary"
                           type="button"
@@ -1679,13 +1658,6 @@
 
                       <div class="d-flex my-5">
                         <button
-                          id="saveDraftButton4"
-                          class="btn btn-warning me-5"
-                          type="button"
-                        >
-                          Save Draft
-                        </button>
-                        <button
                           id="nextButton4"
                           class="btn btn-primary"
                           type="button"
@@ -1789,13 +1761,6 @@
                         </div>
                       </div>
                       <div class="d-flex my-5">
-                        <button
-                          id="saveDraftButton5"
-                          class="btn btn-warning me-5"
-                          type="button"
-                        >
-                          Save Draft
-                        </button>
                         <button
                           id="nextButton5"
                           class="btn btn-primary"
@@ -2885,13 +2850,6 @@
 
                       <div class="d-flex my-5">
                         <button
-                          id="saveDraftButton6"
-                          class="btn btn-warning me-5"
-                          type="button"
-                        >
-                          Save Draft
-                        </button>
-                        <button
                           id="nextButton6"
                           class="btn btn-primary"
                           type="button"
@@ -3012,13 +2970,6 @@
                         />
                       </div>
                       <div class="d-flex my-5">
-                        <button
-                          id="saveDraftButton7"
-                          class="btn btn-warning me-5"
-                          type="button"
-                        >
-                          Save Draft
-                        </button>
                         <button
                           id="goToPaymentButton"
                           class="btn btn-primary"
@@ -3197,7 +3148,7 @@
         </div>
       </div>
     </div>
-
+    <!--   
     <script>
       function calculatePrice() {
         var applicationType = document.querySelector(
@@ -3239,18 +3190,68 @@
         var paymentFields = document.getElementsByClassName("paymentFields");
         for (var i = 0; i < paymentFields.length; i++) {
           paymentFields[i].classList.add("d-none");
+          // Disable all fields within the paymentFields div
+          var inputs = paymentFields[i].getElementsByTagName("input");
+          for (var j = 0; j < inputs.length; j++) {
+            inputs[j].disabled = true;
+          }
         }
-        document
-          .getElementById(selectedOption + "Payment")
-          .classList.remove("d-none");
+        var selectedFields = document.getElementById(
+          selectedOption + "Payment"
+        );
+        selectedFields.classList.remove("d-none");
+        // Enable fields within the selected paymentFields div
+        var selectedInputs = selectedFields.getElementsByTagName("input");
+        for (var j = 0; j < selectedInputs.length; j++) {
+          selectedInputs[j].disabled = false;
+        }
 
         var submitButton = document.getElementById("submitButton");
         if (selectedOption === "upi") {
-          submitButton.textContent = "Go to UPI";
+          submitButton.textContent = "Pay with UPI";
         } else {
           submitButton.textContent = "Pay Now";
         }
         calculatePrice();
+      }
+
+      document
+        .getElementById("paymentForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          completePayment("completed");
+        });
+
+      function completePayment(paymentStatus) {
+        const activeUser = JSON.parse(sessionStorage.getItem("activeUser"));
+        const NewPassportApplicationForms =
+          JSON.parse(localStorage.getItem("NewPassportApplicationForms")) || [];
+
+        let existingForm = NewPassportApplicationForms.find(
+          (form) => form.userid === activeUser.id && !form.submissiondate
+        );
+
+        if (existingForm) {
+          existingForm.payment = paymentStatus;
+
+          const currentDateTime = getCurrentDateTime();
+          existingForm.submissiondate = currentDateTime.date;
+          existingForm.submissiontime = currentDateTime.time;
+
+          localStorage.setItem(
+            "NewPassportApplicationForms",
+            JSON.stringify(NewPassportApplicationForms)
+          );
+
+          alert("Payment completed!");
+        } else {
+          alert("Form not found or already submitted.");
+        }
+
+        var paymentModal = new bootstrap.Modal(
+          document.getElementById("paymentModal")
+        );
+        paymentModal.hide();
       }
 
       // Call calculatePrice when the modal is opened and when relevant inputs change
@@ -3264,7 +3265,185 @@
         .forEach((element) => {
           element.addEventListener("change", calculatePrice);
         });
+
+      // Function to get the current date and time in the desired format
+      function getCurrentDateTime() {
+        const now = new Date();
+        const date = now.toLocaleDateString("en-GB");
+        const time = now.toLocaleTimeString("en-GB");
+        return { date, time };
+      }
+    </script> 
+    -->
+    <script>
+      function calculatePrice() {
+        var applicationType = document.querySelector(
+          'input[name="application_type"]:checked'
+        )?.value;
+        var passportBookletType = document.getElementById(
+          "passport_booklet_type"
+        ).value;
+
+        var price = 0;
+        if (applicationType && passportBookletType) {
+          if (
+            applicationType === "normal" &&
+            passportBookletType === "36_pages"
+          ) {
+            price = 1500;
+          } else if (
+            applicationType === "normal" &&
+            passportBookletType === "60_pages"
+          ) {
+            price = 2000;
+          } else if (
+            applicationType === "tatkaal" &&
+            passportBookletType === "36_pages"
+          ) {
+            price = 3500;
+          } else if (
+            applicationType === "tatkaal" &&
+            passportBookletType === "60_pages"
+          ) {
+            price = 4000;
+          }
+        }
+        document.getElementById("amount").textContent = `₹ ${price}`;
+      }
+
+      function showPaymentFields() {
+        var selectedOption = document.getElementById("payment_option").value;
+        var paymentFields = document.getElementsByClassName("paymentFields");
+        for (var i = 0; i < paymentFields.length; i++) {
+          paymentFields[i].classList.add("d-none");
+          var inputs = paymentFields[i].getElementsByTagName("input");
+          for (var j = 0; j < inputs.length; j++) {
+            inputs[j].disabled = true;
+          }
+        }
+        var selectedFields = document.getElementById(
+          selectedOption + "Payment"
+        );
+        selectedFields.classList.remove("d-none");
+        var selectedInputs = selectedFields.getElementsByTagName("input");
+        for (var j = 0; j < selectedInputs.length; j++) {
+          selectedInputs[j].disabled = false;
+        }
+
+        var submitButton = document.getElementById("submitButton");
+        if (selectedOption === "upi") {
+          submitButton.textContent = "Pay with UPI";
+        } else {
+          submitButton.textContent = "Pay Now";
+        }
+        calculatePrice();
+      }
+
+      document
+        .getElementById("paymentForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          console.log("Payment submitted!");
+          completePayment("completed");
+        });
+
+      function completePayment(paymentStatus) {
+        console.log("inisde method!");
+        const activeUser = JSON.parse(sessionStorage.getItem("activeUser"));
+        const NewPassportApplicationForms =
+          JSON.parse(localStorage.getItem("NewPassportApplicationForms")) || [];
+
+        let existingForm = NewPassportApplicationForms.find(
+          (form) => form.userid === activeUser.id && form.payment === "pending"
+        );
+
+        if (!existingForm) {
+          alert("Form not found or already submitted.");
+          return;
+        }
+        console.log("im here ! " + paymentStatus);
+        console.log("im here" + existingForm.payment);
+        existingForm.payment = paymentStatus;
+
+        console.log("im here" + existingForm.payment);
+        const currentDateTime = getCurrentDateTime();
+        existingForm.submissiondate = currentDateTime.date;
+        existingForm.submissiontime = currentDateTime.time;
+
+        localStorage.setItem(
+          "NewPassportApplicationForms",
+          JSON.stringify(NewPassportApplicationForms)
+        );
+
+        alert("Payment completed!");
+
+        var paymentModalElement = document.getElementById("paymentModal");
+        var paymentModal = bootstrap.Modal.getInstance(paymentModalElement);
+        paymentModal.hide();
+      }
+
+      document
+        .getElementById("paymentModal")
+        .addEventListener("show.bs.modal", () => {
+          ensureFormExists();
+          calculatePrice();
+        });
+
+      document
+        .querySelectorAll(
+          'input[name="application_type"], #passport_booklet_type'
+        )
+        .forEach((element) => {
+          element.addEventListener("change", calculatePrice);
+        });
+
+      function getCurrentDateTime() {
+        const now = new Date();
+        const date = now.toLocaleDateString("en-GB");
+        const time = now.toLocaleTimeString("en-GB");
+        return { date, time };
+      }
+
+      function ensureFormExists() {
+        const activeUser = JSON.parse(sessionStorage.getItem("activeUser"));
+        let NewPassportApplicationForms =
+          JSON.parse(localStorage.getItem("NewPassportApplicationForms")) || [];
+
+        let existingForm = NewPassportApplicationForms.find(
+          (form) => form.userid === activeUser.id && !form.submissiondate
+        );
+
+        if (!existingForm) {
+          existingForm = {
+            id: generateNewId(NewPassportApplicationForms),
+            newpassportapplicationformid: generateNewId(
+              NewPassportApplicationForms
+            ),
+            userid: activeUser.id,
+            section1: {},
+            section2: {},
+            section3: {},
+            section4: {},
+            section5: {},
+            section6: {},
+            section7: {},
+            submissiondate: "",
+            submissiontime: "",
+            payment: "pending",
+          };
+          NewPassportApplicationForms.push(existingForm);
+          localStorage.setItem(
+            "NewPassportApplicationForms",
+            JSON.stringify(NewPassportApplicationForms)
+          );
+        }
+      }
+
+      function generateNewId(array) {
+        return array.length ? array[array.length - 1].id + 1 : 1;
+      }
     </script>
+
     <!-- Modal End -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
     <script src="scripts/formscripts/serviceRequired.js"></script>
