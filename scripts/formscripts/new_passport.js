@@ -111,22 +111,24 @@ document.addEventListener("DOMContentLoaded", () => {
       father_surname: document.getElementById("father_surname").value,
       mother_given_name: document.getElementById("mother_given_name").value,
       mother_surname: document.getElementById("mother_surname").value,
-      minor_or_adult: document.querySelector(
-        'input[name="minor_or_adult"]:checked'
-      ).value,
-      legal_guardian_given_name: document.getElementById(
-        "legal_guardian_given_name"
-      ).value,
-      legal_guardian_surname: document.getElementById("legal_guardian_surname")
-        .value,
-      father_passport_number: document.getElementById("father_passport_number")
-        .value,
-      father_nationality: document.getElementById("father_nationality").value,
-      mother_passport_number: document.getElementById("mother_passport_number")
-        .value,
-      mother_nationality: document.getElementById("mother_nationality").value,
-      spouse_given_name: document.getElementById("spouse_given_name").value,
-      spouse_surname: document.getElementById("spouse_surname").value,
+      minor_or_adult:
+        document.querySelector('input[name="minor_or_adult"]:checked')?.value ||
+        "",
+      legal_guardian_given_name:
+        document.getElementById("legal_guardian_given_name").value || "",
+      legal_guardian_surname:
+        document.getElementById("legal_guardian_surname").value || "",
+      father_passport_number:
+        document.getElementById("father_passport_number").value || "",
+      father_nationality:
+        document.getElementById("father_nationality").value || "",
+      mother_passport_number:
+        document.getElementById("mother_passport_number").value || "",
+      mother_nationality:
+        document.getElementById("mother_nationality").value || "",
+      spouse_given_name:
+        document.getElementById("spouse_given_name").value || "",
+      spouse_surname: document.getElementById("spouse_surname").value || "",
     };
     saveSectionData(3, section3Data);
   });
